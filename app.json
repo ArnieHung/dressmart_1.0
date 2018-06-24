@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "sdkVersion": "27.0.0",
+    "splash": {
+      "image": "./assets/suit.png",
+      "backgroundColor": "#FEF9B0"
+    },
+    "name": "AwesomeProject",
+    "slug": "awesomeproject",
+    "version": "0.1.0",
+    "isDetached": true,
+    "detach": {},
+    "scheme": "expd189736b7c82457ea32f599a8968150e"
+  }
+}
