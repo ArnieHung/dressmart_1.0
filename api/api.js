@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AsyncStorage} from 'react-native';
 
-const baseUrl = 'http://192.168.249.2:3000/dresSmart';
+const baseUrl = 'http://172.20.81.110:8080';
 
 
 
@@ -16,6 +16,19 @@ export function submitdb(account,mail,ages) {
         return res.data;
     })
     .catch( error => {
+        alert(error);
+    });
+}
+
+export function signup(account, email, password) {
+    const url = baseUrl + "/signup";
+    return axios.post(url, {
+        account, email, password
+    })
+    .then( res => {
+        return res.data;
+    })
+    .catch(error => {
         alert(error);
     });
 }

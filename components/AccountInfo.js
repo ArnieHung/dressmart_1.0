@@ -39,22 +39,22 @@ export  class AccountInfo extends Component {
     }
 
     state = {
-        account: "a",
+        name: "a",
         Mail: "a@gmail.com",
         Ages: '3',
         gender: 'Male',
         introduction: 'Hi!'
     };
     data = {
-        account: "a",
+        name: "a",
         Mail: "a@gmail.com",
         Ages: '3',
         gender: 'Male',
         introduction: 'Hi!'
     };
 
-    handleaccountChange = (account) => {
-       this.setState({ account });
+    handlenameChange = (name) => {
+       this.setState({ name });
     };
     handleMailChange = (Mail) => {
        this.setState({ Mail });
@@ -76,9 +76,9 @@ export  class AccountInfo extends Component {
     render() {
       return (
         <View style={styles.allpage} >
-          <View style={styles.account}>
-            <Text style={styles.text}>Account</Text>
-            <TextInput style={styles.textinput} value={this.state.account} onChangeText={this.handleaccountChange}/>
+          <View style={styles.name}>
+            <Text style={styles.text}>Name</Text>
+            <TextInput style={styles.textinput} value={this.state.name} onChangeText={this.handlenameChange}/>
           </View>
 
           <View style={styles.mail}>

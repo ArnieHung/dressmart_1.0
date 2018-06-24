@@ -8,7 +8,7 @@ import { Main_page } from './components/Main.js';
 import {signup} from './api/api.js';
 
 const Form = t.form.Form;
-
+const UserAccount='';
 const User = t.struct({
   account: t.String,
   email: t.String,
@@ -33,6 +33,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#CCCCFF',
 
   },
+  text:{
+    fontSize: 20,
+    color: 'black'
+  },
+  textinput:{
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1
+  },
   button:{
     margin: 10,
     padding: 10,
@@ -50,8 +59,8 @@ class HomeScreen extends React.Component {
     // login
     const email = this._form.getValue();
     const password = this._form.getValue();
-    const url = 'http://172.20.42.117:8080/token';
-    alert(email,password);
+    const url = 'http://192.168.249.2:8080/token';
+    alert(email);
 
     axios.post(url, {
       email: email,
@@ -72,7 +81,7 @@ class HomeScreen extends React.Component {
       })
       .catch((error) => {
         // Handle returned errors here
-        alert("get token error");
+        //alert("get token error");
       });
   }
   render() {
@@ -105,19 +114,51 @@ class HomeScreen extends React.Component {
 }
 
 class SigninScreen extends React.Component {
-  handleSignup = () => {
-    const account = this._form.getValue();
-    const email = this._form.getValue();
-    const password = this._form.getValue();
-    signup(account,email,password);
+  constructor(props) {
+    super(props);
   }
+  state = {
+      account: "",
+      email: "",
+      password: "",
+  };
+
+  handleaccountChange = (account) => {
+     this.setState({ account });
+  };
+  handleEmailChange = (email) => {
+     this.setState({ email });
+  };
+  handlepasswordChange = (password) => {
+     this.setState({ password });
+  };
+
+  handleSignup = () => {
+    signup(this.state.account,this.state.email,this.state.password).then(info =>{
+        const {account} = info;
+        if(account){
+          alert("OK");
+          UserAccount = account;
+          this.props.navigation.navigate('MainScreen');
+        }else{
+          alert('Error!!')
+        }
+    })
+
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <Form
-          type={User}
-          ref={c => this._form = c}
-        />
+        <View>
+        <Text>Account</Text>
+        <TextInput style={styles.textinput} value={this.state.account} onChangeText={this.handleaccountChange}/>
+        <Text>Email</Text>
+        <TextInput style={styles.textinput} value={this.state.email} onChangeText={this.handleEmailChange}/>
+        <Text>Password</Text>
+        <TextInput style={styles.textinput} value={this.state.password} onChangeText={this.handlepasswordChange}/>
+
+        </View>
         <TouchableOpacity style={styles.button}  onPress={this.handleSignup}>
             <Text style={styles.buttonText}> Create </Text>
         </TouchableOpacity>
@@ -127,8 +168,6 @@ class SigninScreen extends React.Component {
         <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('MainScreen')}>
             <Text style={styles.buttonText}> Skip </Text>
         </TouchableOpacity>
-
-
       </View>
     );
   }
